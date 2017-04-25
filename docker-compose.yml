@@ -1,0 +1,49 @@
+web:
+  image: hansphung/dockerized-magento-nginx
+  ports:
+#    - "80:80"
+    - "443:443"
+  links:
+    - "php"
+  volumes:
+    - ./var/log/nginx:/var/log/nginx
+  volumes_from:
+    - php
+php:
+  image: hansphung/dockerized-magento-php:7.0-fpm
+  links:
+    - "cache:rediscache"
+    - "sessions:redissession"
+    - "db:db"
+  volumes:
+    - .:/var/www/html
+db:
+  image: mysql
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+  volumes:
+    - ./var/lib/mysql:/var/lib/mysql
+cache:
+  image: redis:latest
+sessions:
+  image: redis:latest
+varnish:
+  image: million12/varnish
+  links:
+    - "web:backend-host"
+  ports:
+    - "80:80"
+  volumes_from:
+    - web
+  environment:
+    VCL_CONFIG: /var/www/html/var/default.vcl
+    CACHE_SIZE: 64m
+    VARNISHD_PARAMS: -p cli_buffer=16384 -p vcc_allow_inline_c=on -p feature=+esi_ignore_other_elements,+esi_disable_xml_check
+adminer:
+  image: adminer
+  ports:
+    - "8080:8080"
+  links:
+    - "db:db"
