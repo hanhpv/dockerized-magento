@@ -25,7 +25,7 @@ The `docker-compose.yml` include a Varnish service. The `default.vcl` file is ge
 Happy debugging!
 
 # docker-compose wrapper
-This is a script to shorten the docker-compose commands. It helps us much easier working with the containers. The script was copied from https://github.com/andreaskoch/dockerized-magento/blob/master/magento and customized work with my stack.
+This is a script to shorten the docker-compose commands. It helps us much easier working with the containers. The script was copied from https://github.com/andreaskoch/dockerized-magento/blob/master/magento and customized to work with my stack.
 
 To use it, run this command in the terminal: `chmod +x magento && cp magento /usr/local/bin/dcw`. Then we will have a command called `dcw`. It must be run from within the Magento root directory.
 
