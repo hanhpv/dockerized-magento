@@ -23,3 +23,26 @@ The `docker-compose.yml` include a Varnish service. The `default.vcl` file is ge
 5. Install the Xdebug bookmarlets so we can start and stop the debugging from browser. Link here https://www.jetbrains.com/phpstorm/marklets/
 
 Happy debugging!
+
+# docker-compose wrapper
+This is a script to shorten the docker-compose commands. It helps us much easier working with the containers. The script was copied from https://github.com/andreaskoch/dockerized-magento/blob/master/magento and customized work with my stack.
+
+To use it, run this command in the terminal: `chmod +x magento && cp magento /usr/local/bin/dcw`. Then we will have a command called `dcw`. It must be run from within the Magento root directory.
+
+Available commands:
+
+```
+start      Starts the docker containers (and triggers the
+             installation if magento is not yet installed)
+stop       Stops all docker containers
+restart    Restarts all docker containers
+status     Prints the status of all docker containers
+stats      Displays live resource usage statistics of all containers
+magerun    Executes magerun in the magento root directory
+composer   Executes composer in the magento root directory
+enter      Enters the bash of a given container type (e.g. php, mysql)
+destroy    Stops all containers and removes all data
+```
+
+
+
